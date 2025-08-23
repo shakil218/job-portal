@@ -3,10 +3,11 @@ import RegisterAnimationData from "../../assets/Lottie/register.json";
 import Lottie from "lottie-react";
 import AuthContext from "../../Context/AuthContext";
 import SocialLogin from "../Shared/SocialLogin";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const { createNewUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleSignUp = (event) => {
     event.preventDefault();
@@ -22,6 +23,7 @@ const Register = () => {
     createNewUser(email, password)
       .then((result) => {
         console.log(result.user);
+        navigate('/');
       })
       .catch((error) => {
         console.log(error.code);
