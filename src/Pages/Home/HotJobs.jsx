@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import HotJobsCard from "./HotJobsCard";
+import AuthContext from "../../Context/AuthContext";
+import Spinner from "../Shared/Spinner";
+
 
 const HotJobs = () => {
   const [jobs, setJobs] = useState([]);
+  const {loading} =useContext(AuthContext)
 
   useEffect(() => {
     fetch(`http://localhost:5000/jobs`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setJobs(data);
+        if(loading){
+          return <Spinner></Spinner>
+        }else{
+          setJobs(data);
+        }
       });
-  }, []);
+  }, [loading]);
 
   return (
     <div>

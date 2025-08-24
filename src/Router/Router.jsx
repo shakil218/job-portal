@@ -18,6 +18,7 @@ const router = createBrowserRouter([
           Page <span className="text-emerald-300">Not Found</span>.
         </p>
       </div>
+      
     ),
     children: [
       {

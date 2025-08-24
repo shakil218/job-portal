@@ -1,14 +1,15 @@
 import React from 'react';
 import JobDetailsCard from './JobDetailsCard';
-import { useLoaderData } from 'react-router-dom';
+import JobDetailsBanner from './JobDetailsBanner';
+import NewsLetters from '../Shared/NewsLetters';
 
 const JobDetails = () => {
-  const job = useLoaderData();
-  console.log(job);
+  
   return (
     <div>
-      <h1>Job Details</h1>
+      <JobDetailsBanner></JobDetailsBanner>
       <JobDetailsCard></JobDetailsCard>
+      <NewsLetters></NewsLetters>
     </div>
   );
 };
