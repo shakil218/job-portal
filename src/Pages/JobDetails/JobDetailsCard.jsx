@@ -16,6 +16,7 @@ const JobDetailsCard = () => {
   const job = useLoaderData();
   console.log(job);
   const {
+    _id,
     title,
     jobType,
     applicationDeadline,
@@ -49,7 +50,7 @@ const JobDetailsCard = () => {
             </div>
           </div>
 
-          <Link to={""} className="btn btn-primary  hover:bg-blue-950 ">
+          <Link to={`/job-apply/${_id}`} className="btn btn-primary  hover:bg-blue-950 ">
             <MdOutlineVerified></MdOutlineVerified>
             Apply Now
           </Link>

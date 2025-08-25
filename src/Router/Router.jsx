@@ -5,6 +5,8 @@ import Register from "../Pages/Register/Register";
 import Login from "../Pages/Login/Login";
 import JobDetails from "../Pages/JobDetails/JobDetails";
 import PrivateRoute from "./PrivateRoute";
+import JobApply from "../Pages/jobApply/JobApply";
+import MyApplication from "../Pages/myApplication/MyApplication";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +20,6 @@ const router = createBrowserRouter([
           Page <span className="text-emerald-300">Not Found</span>.
         </p>
       </div>
-      
     ),
     children: [
       {
@@ -32,7 +33,24 @@ const router = createBrowserRouter([
             <JobDetails></JobDetails>
           </PrivateRoute>
         ),
-        loader:({params})=>fetch(`http://localhost:5000/jobs/${params.id}`)
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/jobs/${params.id}`),
+      },
+      {
+        path: "/job-apply/:id",
+        element: (
+          <PrivateRoute>
+            <JobApply></JobApply>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-application",
+        element: (
+          <PrivateRoute>
+            <MyApplication></MyApplication>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/register",

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import AuthContext from "../../Context/AuthContext";
 import logo from '../../assets/fav-icon.png';
+import './css/Style.css'
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
@@ -25,6 +26,9 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink to={"/jobs/:id"}>Job-Details</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/my-application"}>My Application</NavLink>
       </li>
     </>
   );

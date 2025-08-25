@@ -9,7 +9,7 @@ const NewsLetters = () => {
       <div className="flex justify-center items-center w-3/12">
         <img src={newsLetterLeft} alt="" />
       </div>
-      <div className="flex flex-col justify-center items-center text-center mx-5 gap-10 w-6/12">
+      <div className="flex flex-col justify-center  text-center mx-5 gap-10 w-6/12">
         <h3 className="text-5xl font-semibold text-white">
           New Things Will Always Update Regularly
         </h3>
