@@ -1,18 +1,40 @@
 import React from "react";
 import { motion } from "motion/react";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const AddJobs = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   const handleAddJob = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    // console.log(formData.entries());
     const initialData = Object.fromEntries(formData.entries());
-    console.log(initialData);
     const { min, max, currency, ...newJob } = initialData;
-    console.log(newJob);
     newJob.salaryRange = { min, max, currency };
     newJob.requirements = newJob.requirements.split("\n");
     newJob.responsibilities = newJob.responsibilities.split("\n");
+
+    fetch("http://localhost:5000/jobs", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newJob),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Good job!",
+            text: "Your application submitted successfully!",
+            icon: "success",
+          });
+          navigate("/my-posted-jobs");
+        }
+      });
   };
   return (
     <div className="my-5">
@@ -54,7 +76,6 @@ const AddJobs = () => {
               />
             </div>
           </div>
-
           {/* column 2 */}
           <div className="flex flex-col md:flex-row gap-3">
             {/* Company */}
@@ -86,6 +107,7 @@ const AddJobs = () => {
             <div className="flex-1">
               <label className="label">Hr-Name</label>
               <input
+                defaultValue={user?.displayName}
                 type="text"
                 name="hr_name"
                 className="input w-full"
@@ -97,6 +119,7 @@ const AddJobs = () => {
             <div className="flex-1">
               <label className="label">Hr-Email</label>
               <input
+                defaultValue={user?.email}
                 type="email"
                 name="hr_email"
                 className="input w-full"
@@ -183,6 +206,17 @@ const AddJobs = () => {
                   <option>Teaching</option>
                 </select>
               </fieldset>
+            </div>
+            {/*Application deadline */}
+            <div className="flex-1">
+              <label className="label">Application Deadline</label>
+              <input
+                type="date"
+                name="applicationDeadline"
+                className="input w-full"
+                placeholder="Application Deadline"
+                required
+              />
             </div>
           </div>
           {/* column 8 */}
