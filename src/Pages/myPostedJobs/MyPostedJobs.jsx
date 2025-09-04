@@ -2,15 +2,20 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyPostedJobs = () => {
   const [jobs, setJobs] = useState([]);
   const { user } = useAuth();
+
+  const axiosSecure = useAxiosSecure();
+
   useEffect(() => {
-    fetch(`http://localhost:5000/jobs?email=${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => setJobs(data));
-  }, [user?.email]);
+    axiosSecure
+      .get(`/jobs?email=${user?.email}`)
+      .then((res) => setJobs(res.data));
+  }, [user?.email, axiosSecure]);
+
   return (
     <div className="my-10">
       <h1 className="text-2xl md:text-4xl font-bold text-center mb-5">
